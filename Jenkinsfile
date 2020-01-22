@@ -1,11 +1,10 @@
 import groovy.json.JsonBuilder
 
 node('jenkins-jenkins-slave') {
-  withEnv(['REPOSITORY=miau',
-  'GIT_ACCOUNT=https://github.com/mawinkler']) {
+  withEnv(['REPOSITORY=miau']) {
     stage('Pull Image from Git') {
       script {
-        git "${GIT_ACCOUNT}/${REPOSITORY}.git"
+        git (url: "${scm.userRemoteConfigs[0].url}")
       }
     }
     stage('Build Image') {
